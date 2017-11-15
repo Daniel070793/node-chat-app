@@ -15,6 +15,16 @@ app.use(express.static(publicPath));
 io.on("connection", socket => {
   console.log("New user connected at: " + moment().format("LTS"));
 
+  socket.emit("newMessage", {
+    from: "someone",
+    text: "hej fra mig",
+    createdAt: 123123
+  });
+
+  socket.on("createMessage", message => {
+    console.log("createMessage", message);
+  });
+
   socket.on("disconnect", () => {
     console.log("User disconnected at: " + moment().format("LTS"));
   });
