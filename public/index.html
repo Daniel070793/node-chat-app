@@ -9,21 +9,7 @@
 <body>
     <p>Welcome to the chat app</p>
     <script src="/socket.io/socket.io.js"></script>
-    <script>
-        var socket = io();
-
-        socket.on("connect", () => {
-            var date = new Date();
-            var time = date.toLocaleTimeString();
-            console.log("Connected to server at: " + time);
-        });
-        socket.on("disconnect", () => {
-            var date = new Date();
-            var time = date.toLocaleTimeString();
-            console.log("Disconnected from server at: " + time);
-        });
-
-    </script>
+    <script src="/js/index.js"></script>
 </body>
 
 </html>
