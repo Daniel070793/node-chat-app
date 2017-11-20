@@ -14,7 +14,7 @@ socket.on("disconnect", function() {
 });
 
 socket.on("newMessage", function(message) {
-  var formattedTime = moment(message.createdAt).format("llll"); //skal fikses så der ikke står pm/am
+  var formattedTime = moment(message.createdAt).format("LTS"); //skal fikses så der ikke står pm/am
   var li = jQuery("<li></li>");
   li.text(`${message.from} ${formattedTime}: ${message.text}`);
 
