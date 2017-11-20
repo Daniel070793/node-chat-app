@@ -1,5 +1,5 @@
 var socket = io();
-var test = moment.locale("da");
+moment().locale("da");
 
 socket.on("connect", function() {
   var date = new Date();
@@ -12,9 +12,9 @@ socket.on("disconnect", function() {
   var time = date.toLocaleTimeString();
   console.log("Disconnected from server at: " + time);
 });
-var test = moment.locale("da");
+
 socket.on("newMessage", function(message) {
-  var formattedTime = moment(message.createdAt).format("LTS"); //skal fikses så der ikke står pm/am
+  var formattedTime = moment(message.createdAt).format("llll"); //skal fikses så der ikke står pm/am
   var li = jQuery("<li></li>");
   li.text(`${message.from} ${formattedTime}: ${message.text}`);
 

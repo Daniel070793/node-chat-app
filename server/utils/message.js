@@ -1,5 +1,5 @@
 var moment = require("moment");
-var test = moment.locale("da");
+moment.locale("da");
 
 var generateMessage = (from, text) => {
   return {
