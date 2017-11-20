@@ -1,4 +1,5 @@
 var socket = io();
+var test = moment.locale("da");
 
 socket.on("connect", function() {
   var date = new Date();
@@ -11,20 +12,21 @@ socket.on("disconnect", function() {
   var time = date.toLocaleTimeString();
   console.log("Disconnected from server at: " + time);
 });
-
+var test = moment.locale("da");
 socket.on("newMessage", function(message) {
-  console.log("newMessage", message);
+  var formattedTime = moment(message.createdAt).format("LTS"); //skal fikses så der ikke står pm/am
   var li = jQuery("<li></li>");
-  li.text(`${message.from}: ${message.text}`);
+  li.text(`${message.from} ${formattedTime}: ${message.text}`);
 
   jQuery("#messages").append(li);
 });
 
 socket.on("newLocationMessage", function(message) {
+  var formattedTime = moment(message.createdAt).format("LTS"); //skal fikses så der ikke står pm/am
   var li = jQuery("<li></li>");
   var a = jQuery('<a target="_blank">Min nuværende placering</a>');
 
-  li.text(`${message.from}: `);
+  li.text(`${message.from} ${formattedTime}: `);
   a.attr("href", message.url);
   li.append(a);
   jQuery("#messages").append(li);
