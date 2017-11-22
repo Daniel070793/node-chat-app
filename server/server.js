@@ -17,17 +17,24 @@ app.use(express.static(publicPath));
 io.on("connection", socket => {
   console.log("New user connected at: " + moment().format("LTS"));
 
-  socket.emit("newMessage", generateMessage("Admin", "Velkommen til chatten."));
-
-  socket.broadcast.emit(
-    "newMessage",
-    generateMessage("Admin", "Ny bruger tilsluttet")
-  );
-
   socket.on("join", (params, callback) => {
     if (!isRealString(params.name) || !isRealString(params.room)) {
       callback("Navn og navn på rum er påkrævet.");
     }
+    socket.join(params.room);
+
+    socket.emit(
+      "newMessage",
+      generateMessage("Admin", "Velkommen til chatten.")
+    );
+
+    socket.broadcast
+      .to(params.room)
+      .emit(
+        "newMessage",
+        generateMessage("Admin", `${params.name} er tilsluttet`)
+      );
+
     callback();
   });
 
