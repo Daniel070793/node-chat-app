@@ -21,9 +21,15 @@ function scrollToBottom() {
 }
 
 socket.on("connect", function() {
-  var date = new Date();
-  var time = date.toLocaleTimeString();
-  console.log("Connected to server at: " + time);
+  var params = jQuery.deparam(window.location.search);
+  socket.emit("join", params, function(err) {
+    if (err) {
+      alert(err); //kan ændres til boostrap eller andet flottere fejlmeddelse.
+      window.location.href = "/";
+    } else {
+      console.log("No error");
+    }
+  });
 });
 
 socket.on("disconnect", function() {
